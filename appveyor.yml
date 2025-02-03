@@ -11,11 +11,12 @@ artifacts:
   - path: dist
 
 deploy:
-  provider: GitHubPages
-  auth_token:
-    secure: $(GITHUB_TOKEN)
-  repository: simplespacej/whack-a-mole
-  branch: gh-pages
-  cleanup: true
-  on:
-    branch: main
+  - provider: GitHubPages
+    auth_token:
+      secure: $(GITHUB_TOKEN)
+    repository: simplespacej/whack-a-mole
+    branch: gh-pages
+    folder: dist
+    on:
+      branch: main
+
