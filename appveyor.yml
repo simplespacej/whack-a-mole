@@ -6,7 +6,9 @@ install:
 
 before_build:
   - git fetch --all
-  - git reset --hard origin/main
+  - git checkout main
+  - git pull origin main
+  - git fetch origin gh-pages || echo "No gh-pages branch yet"
 
 build_script:
   - npm run build
@@ -18,7 +20,7 @@ after_build:
   - echo "Deploying to GitHub Pages..."
   - git config --global user.email "my-programming@mail.ru"
   - git config --global user.name "simplespacej"
-  - git clone --depth=1 --branch=gh-pages https://$(GITHUB_TOKEN)@github.com/simplespacej/whack-a-mole.git gh-pages
+  - git clone --depth=1 --branch=gh-pages https://$(GITHUB_TOKEN)@github.com/simplespacej/whack-a-mole.git gh-pages || git checkout --orphan gh-pages
   - rsync -av --delete dist/ gh-pages/
   - cd gh-pages
   - git add .
