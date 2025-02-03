@@ -19,4 +19,3 @@ deploy:
     folder: dist
     on:
       branch: main
-
