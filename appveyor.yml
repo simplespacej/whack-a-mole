@@ -9,6 +9,8 @@ before_build:
   - git checkout main
   - git pull origin main
   - git fetch origin gh-pages || echo "No gh-pages branch yet"
+  - git reset --hard origin/main
+  - git pull origin main
 
 build_script:
   - npm run build
