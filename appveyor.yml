@@ -1,0 +1,21 @@
+version: 1.0.{build}
+image: Ubuntu
+
+install:
+  - npm install
+
+build_script:
+  - npm run build
+
+artifacts:
+  - path: dist
+
+deploy:
+  provider: GitHubPages
+  auth_token:
+    secure: $(GITHUB_TOKEN)
+  repository: simplespacej/whack-a-mole
+  branch: gh-pages
+  cleanup: true
+  on:
+    branch: main
