@@ -22,12 +22,12 @@ after_build:
   - echo "Deploying to GitHub Pages..."
   - git config --global user.email "my-programming@mail.ru"
   - git config --global user.name "simplespacej"
-  - git clone --depth=1 https://$(GITHUB_TOKEN)@github.com/simplespacej/whack-a-mole.git gh-pages || echo "No gh-pages found, creating one"
+  - rm -rf gh-pages  
+  - git clone --depth=1 -b gh-pages https://$(GITHUB_TOKEN)@github.com/simplespacej/whack-a-mole.git gh-pages || git clone --depth=1 https://$(GITHUB_TOKEN)@github.com/simplespacej/whack-a-mole.git gh-pages
   - cd gh-pages
   - git checkout gh-pages || git checkout -b gh-pages
-  - git reset --hard HEAD
+  - git reset --hard origin/gh-pages || echo "No gh-pages branch on remote, creating..."
   - rsync -av --delete ../dist/ .
   - git add .
   - git commit -m "Update GitHub Pages [ci skip]" || echo "No changes to commit"
-  - git pull --rebase origin gh-pages || echo "No need to rebase"
   - git push origin gh-pages --force
