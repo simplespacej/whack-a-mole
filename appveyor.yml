@@ -4,6 +4,10 @@ image: Ubuntu
 install:
   - npm install
 
+before_build:
+  - git fetch --all
+  - git reset --hard origin/main
+
 build_script:
   - npm run build
 
@@ -12,9 +16,8 @@ artifacts:
 
 deploy:
   - provider: GitHubPages
-    auth_token:
-      secure: $(GITHUB_TOKEN)
-    repository: simplespacej/whack-a-mole
+    auth_token: $(GITHUB_TOKEN)
+    repo: simplespacej/whack-a-mole
     branch: gh-pages
     folder: dist
     on:
