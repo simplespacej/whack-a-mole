@@ -14,11 +14,13 @@ build_script:
 artifacts:
   - path: dist
 
-deploy:
-  - provider: GitHubPages
-    auth_token: $(GITHUB_TOKEN)
-    repo: simplespacej/whack-a-mole
-    branch: gh-pages
-    folder: dist
-    on:
-      branch: main
+after_build:
+  - echo "Deploying to GitHub Pages..."
+  - git config --global user.email "my-programming@mail.ru"
+  - git config --global user.name "simplespacej"
+  - git clone --depth=1 --branch=gh-pages https://$(GITHUB_TOKEN)@github.com/simplespacej/whack-a-mole.git gh-pages
+  - rsync -av --delete dist/ gh-pages/
+  - cd gh-pages
+  - git add .
+  - git commit -m "Update GitHub Pages [ci skip]" || echo "No changes to commit"
+  - git push origin gh-pages
